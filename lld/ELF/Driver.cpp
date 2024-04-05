@@ -1307,7 +1307,7 @@ static void readConfigs(opt::InputArgList &args) {
   config->ltoValidateAllVtablesHaveTypeInfos =
       args.hasFlag(OPT_lto_validate_all_vtables_have_type_infos,
                    OPT_no_lto_validate_all_vtables_have_type_infos, false);
-  config->ltoo = args::getInteger(args, OPT_lto_O, 0);
+  config->ltoo = args::getInteger(args, OPT_lto_O, 2);
   if (config->ltoo > 3)
     error("invalid optimization level for LTO: " + Twine(config->ltoo));
   unsigned ltoCgo =
