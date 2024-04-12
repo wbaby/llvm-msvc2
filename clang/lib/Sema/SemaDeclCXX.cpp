@@ -10413,6 +10413,10 @@ void Sema::DiagnoseHiddenVirtualMethods(CXXMethodDecl *MD) {
 #ifdef _WIN32
   return;
 #endif
+
+  // Don't diagnose hidden virtual methods in Microsoft extensions mode.
+  if (getLangOpts().MicrosoftExt)
+	return;
     
   if (MD->isInvalidDecl())
     return;
