@@ -10409,6 +10409,11 @@ void Sema::NoteHiddenVirtualMethods(CXXMethodDecl *MD,
 /// Diagnose methods which overload virtual methods in a base class
 /// without overriding any.
 void Sema::DiagnoseHiddenVirtualMethods(CXXMethodDecl *MD) {
+  // There is no need to display it on Windows.
+#ifdef _WIN32
+  return;
+#endif
+    
   if (MD->isInvalidDecl())
     return;
 
