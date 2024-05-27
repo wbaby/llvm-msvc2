@@ -268,15 +268,16 @@ bool convertGBKToUTF8String(StringRef SrcGBK, std::string &Out) {
   // Apple's filesystem uses UTF-8 encoding.
   Out = SrcGBK.str();
   return true;
-#elif defined(_WIN32)
+#else
+#if defined(_WIN32)
   const char *GBKLocalName = ".936";
 #else
   const char *GBKLocalName = "zh_CN.GBK";
 #endif
-
   std::filesystem::path Path{SrcGBK.str(), std::locale(GBKLocalName)};
   Out = Path.u8string();
   return true;
+#endif
 }
 
 static_assert(sizeof(wchar_t) == 1 || sizeof(wchar_t) == 2 ||
