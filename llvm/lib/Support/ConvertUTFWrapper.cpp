@@ -264,7 +264,11 @@ bool convertGBKToUTF8String(StringRef SrcGBK, std::string &Out) {
     return false;
   }
 
-#if defined(_WIN32)
+#if defined(__APPLE__)
+  // Apple's filesystem uses UTF-8 encoding.
+  Out = SrcGBK.str();
+  return true;
+#elif defined(_WIN32)
   const char *GBKLocalName = ".936";
 #else
   const char *GBKLocalName = "zh_CN.GBK";
