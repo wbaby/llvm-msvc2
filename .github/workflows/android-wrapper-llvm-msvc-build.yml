@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-2022]
+        os: [ubuntu-latest]
     env:
       BUILD_TYPE: Release
     steps:
