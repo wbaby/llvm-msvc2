@@ -26,7 +26,8 @@ jobs:
           
     - name: Build llvm
       run: |
-        cmake -Bbuild `
+        cmake -Bbuild -G "Visual Studio 17 2022" -A x64 `
+        -DHAVE_STD_IS_TRIVIALLY_COPYABLE=0 -DLLVM_TOOL_LLVM_SHLIB_BUILD=off `
         -DLLVM_ENABLE_PACK_PDB=ON `
         -DLLVM_INCLUDE_TESTS=OFF `
         -DLLVM_INCLUDE_TOOLS=ON `
@@ -40,8 +41,8 @@ jobs:
         -DLLVM_TARGETS_TO_BUILD="X86;ARM;AArch64;Mips;RISCV" `
         -DLLVM_ENABLE_PROJECTS="clang;lld;lldb;clang-tools-extra" `
         llvm-msvc\\llvm
-        cmake --build build --config ${{ env.BUILD_TYPE }}
-        cmake --build build --config ${{ env.BUILD_TYPE }} --target install
+        cmake --build build --config ${{ env.BUILD_TYPE }} --verbose
+        cmake --build build --config ${{ env.BUILD_TYPE }} --target install --verbose
 
     - name: Package llvm
       run: |
