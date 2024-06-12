@@ -9,11 +9,7 @@ jobs:
   build:
     # Skip building pull requests from the same repository
     if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository) }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-2022]
+    runs-on: windows-2022
     env:
       BUILD_TYPE: RelWithDebInfo
     steps:
@@ -23,7 +19,17 @@ jobs:
       with:
           path: llvm-msvc
           submodules: 'recursive'
-          
+
+    - name: Install vswhere
+      run: |
+        choco install vswhere --version 2.8.4 --force
+
+    - name: Setup MSVC
+      run: |
+        $vsPath = &vswhere -version 17.8.5 -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+        echo "VSINSTALLDIR=$vsPath" >> $env:GITHUB_ENV
+        echo "PATH=$vsPath\VC\Tools\MSVC\14.34.31933\bin\Hostx64\x64;$env:PATH" >> $env:GITHUB_ENV
+
     - name: Build llvm
       run: |
         cmake -Bbuild -G "Visual Studio 17 2022" -A x64 `
