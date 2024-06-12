@@ -31,12 +31,9 @@ jobs:
         echo "VSINSTALLDIR=$vsPath" >> $env:GITHUB_ENV
         echo "PATH=$vsPath\VC\Tools\MSVC\14.34.31933\bin\Hostx64\x64;$env:PATH" >> $env:GITHUB_ENV
         
-    - name: Install ninja-build tool
-      uses: seanmiddleditch/gha-setup-ninja@v3
-
     - name: Build llvm
       run: |
-        cmake -Bbuild -G "Ninja" `
+        cmake -Bbuild -G "Visual Studio 17 2022" -A x64 `
         -DHAVE_STD_IS_TRIVIALLY_COPYABLE=0 -DLLVM_TOOL_LLVM_SHLIB_BUILD=off `
         -DLLVM_INCLUDE_EXAMPLES=OFF `
         -DLLDB_ENABLE_PYTHON=OFF `
