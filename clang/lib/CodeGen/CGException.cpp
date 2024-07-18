@@ -630,6 +630,14 @@ void CodeGenFunction::FixSEHEnd(llvm::InvokeInst *InvokeIst) {
 }
 
 void CodeGenFunction::EmitCXXTryStmt(const CXXTryStmt &S) {
+
+  // If try statements are disabled, just emit the try statement as a compound
+  // stmt.
+  if (CGM.getCodeGenOpts().DisableTryStmt) {
+    EmitStmt(S.getTryBlock());
+    return;
+  }
+
   const llvm::Triple &T = Target.getTriple();
   // If we encounter a try statement on in an OpenMP target region offloaded to
   // a GPU, we treat it as a basic block.
@@ -1741,6 +1749,14 @@ llvm::BasicBlock *CodeGenFunction::getEHResumeBlock(bool isCleanup) {
 }
 
 void CodeGenFunction::EmitSEHTryStmt(const SEHTryStmt &S) {
+
+  // If try statements are disabled, just emit the try statement as a compound
+  // stmt.
+  if (CGM.getCodeGenOpts().DisableTryStmt) {
+    EmitStmt(S.getTryBlock());
+    return;
+  }
+  
   bool ContainsRetStmt = false;
   EnterSEHTryStmt(S, ContainsRetStmt);
   {
