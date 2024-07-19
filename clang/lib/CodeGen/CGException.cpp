@@ -633,7 +633,8 @@ void CodeGenFunction::EmitCXXTryStmt(const CXXTryStmt &S) {
 
   // If try statements are disabled, just emit the try statement as a compound
   // stmt.
-  if (CGM.getCodeGenOpts().DisableTryStmt) {
+  if (CGM.getCodeGenOpts().DisableTryStmt ||
+      (CurCodeDecl && CurCodeDecl->hasAttr<DisableTryStmtAttr>())) {
     EmitStmt(S.getTryBlock());
     return;
   }
@@ -1752,7 +1753,8 @@ void CodeGenFunction::EmitSEHTryStmt(const SEHTryStmt &S) {
 
   // If try statements are disabled, just emit the try statement as a compound
   // stmt.
-  if (CGM.getCodeGenOpts().DisableTryStmt) {
+  if (CGM.getCodeGenOpts().DisableTryStmt ||
+      (CurCodeDecl && CurCodeDecl->hasAttr<DisableTryStmtAttr>())) {
     EmitStmt(S.getTryBlock());
     return;
   }
