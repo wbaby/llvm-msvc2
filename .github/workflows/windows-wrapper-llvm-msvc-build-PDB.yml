@@ -54,7 +54,7 @@ jobs:
         7z a -v1500m windows-wrapper-llvm-msvc-PDB.zip install
         
     - name: Upload Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: windows-wrapper-llvm-msvc-PDB
         path: windows-wrapper-llvm-msvc-PDB.zip.00*

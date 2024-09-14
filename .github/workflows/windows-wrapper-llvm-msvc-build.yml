@@ -54,7 +54,7 @@ jobs:
         7z a -v1500m windows-wrapper-llvm-msvc.zip install
         
     - name: Upload Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: windows-wrapper-llvm-msvc
         path: windows-wrapper-llvm-msvc.zip.00*
