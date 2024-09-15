@@ -1071,7 +1071,8 @@ void CodeGenModule::Release() {
                               CodeGenOpts.SanitizeCfiCanonicalJumpTables);
   }
 
-  if (LangOpts.Sanitize.has(SanitizerKind::KCFI)) {
+  if (LangOpts.Sanitize.has(SanitizerKind::KCFI) &&
+      !CodeGenOpts.DisableCFICheck) {
     getModule().addModuleFlag(llvm::Module::Override, "kcfi", 1);
     // KCFI assumes patchable-function-prefix is the same for all indirectly
     // called functions. Store the expected offset for code generation.
