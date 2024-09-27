@@ -36,7 +36,6 @@ jobs:
     - name: Build llvm
       run: |
         cmake -GNinja -Bbuild \
-        -DLLVM_ENABLE_RPMALLOC=ON \
         -DCMAKE_INSTALL_PREFIX=install \
         -DLLVM_INCLUDE_TESTS=OFF \
         -DLLVM_INCLUDE_EXAMPLES=OFF \
