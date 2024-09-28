@@ -62,7 +62,7 @@
 
 ```
 X86+ARM64：clang+lld+lldb+debug
-cmake -Bbuild -A X64 -DLLVM_ENABLE_RPMALLOC=ON -DLLDB_ENABLE_PYTHON=OFF -DLLVM_ENABLE_PROJECTS="clang;lld;lldb" -DCMAKE_INSTALL_PREFIX=E:\llvm\install-debug-64 -DLLVM_TARGETS_TO_BUILD="X86;AArch64" -DCMAKE_BUILD_TYPE=Debug llvm
+cmake -Bbuild -A X64 -DLLDB_ENABLE_PYTHON=OFF -DLLVM_ENABLE_PROJECTS="clang;lld;lldb" -DCMAKE_INSTALL_PREFIX=E:\llvm\install-debug-64 -DLLVM_TARGETS_TO_BUILD="X86;AArch64" -DCMAKE_BUILD_TYPE=Debug llvm
 msbuild /m -p:Configuration=Debug INSTALL.vcxproj 
 --------------------------------------------------
 X86+ARM64：clang+lld+lldb+RelWithDebInfo
